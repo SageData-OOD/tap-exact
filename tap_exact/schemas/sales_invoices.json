@@ -1,0 +1,228 @@
+{
+   "type":["null", "object"],
+   "properties":{
+      "invoice_id":{
+         "type":["null", "string"]
+      },
+      "amount_dc":{
+         "type":["null", "number"]
+      },
+      "amount_discount":{
+         "type":["null", "number"]
+      },
+      "amount_discount_excl_vat":{
+         "type":["null", "number"]
+      },
+      "amount_fc":{
+         "type":["null", "number"]
+      },
+      "amount_fc_excl_vat":{
+         "type":["null", "number"]
+      },
+      "created":{
+         "type":["null", "string"],
+         "format": "date-time"
+      },
+      "creator":{
+         "type":["null", "string"]
+      },
+      "creator_full_name":{
+         "type":["null", "string"]
+      },
+      "currency":{
+         "type":["null", "string"]
+      },
+      "deliver_to":{
+         "type":["null", "string"]
+      },
+      "deliver_to_address":{
+         "type":["null", "string"]
+      },
+      "deliver_to_contact_person":{
+         "type":["null", "string"]
+      },
+      "deliver_to_contact_person_full_name":{
+         "type":["null", "string"]
+      },
+      "deliver_to_name":{
+         "type":["null", "string"]
+      },
+      "description":{
+         "type":["null", "string"]
+      },
+      "discount":{
+         "type":["null", "number"]
+      },
+      "discount_type":{
+         "type":["null", "integer"]
+      },
+      "division":{
+         "type":["null", "integer"]
+      },
+      "document":{
+         "type":["null", "string"]
+      },
+      "document_number":{
+         "type":["null", "integer"]
+      },
+      "document_subject":{
+         "type":["null", "string"]
+      },
+      "due_date":{
+         "type":["null", "string"],
+         "format": "date-time"
+      },
+      "extra_duty_amount_fc":{
+         "type":["null", "number"]
+      },
+      "g_account_amount_fc":{
+         "type":["null", "number"]
+      },
+      "invoice_date":{
+         "type":["null", "string"],
+         "format": "date-time"
+      },
+      "invoice_number":{
+         "type":["null", "integer"]
+      },
+      "invoice_to":{
+         "type":["null", "string"]
+      },
+      "invoice_to_contact_person":{
+         "type":["null", "string"]
+      },
+      "invoice_to_contact_person_full_name":{
+         "type":["null", "string"]
+      },
+      "invoice_to_name":{
+         "type":["null", "string"]
+      },
+      "is_extra_duty":{
+         "type":["null", "boolean"]
+      },
+      "journal":{
+         "type":["null", "string"]
+      },
+      "journal_description":{
+         "type":["null", "string"]
+      },
+      "modified":{
+         "type":["null", "string"],
+         "format": "date-time"
+      },
+      "modifier":{
+         "type":["null", "string"]
+      },
+      "modifier_full_name":{
+         "type":["null", "string"]
+      },
+      "order_date":{
+         "type":["null", "string"],
+         "format": "date-time"
+      },
+      "ordered_by":{
+         "type":["null", "string"]
+      },
+      "ordered_by_contact_person":{
+         "type":["null", "string"]
+      },
+      "ordered_by_contact_person_full_name":{
+         "type":["null", "string"]
+      },
+      "ordered_by_name":{
+         "type":["null", "string"]
+      },
+      "order_number":{
+         "type":["null", "integer"]
+      },
+      "payment_condition":{
+         "type":["null", "string"]
+      },
+      "payment_condition_description":{
+         "type":["null", "string"]
+      },
+      "payment_reference":{
+         "type":["null", "string"]
+      },
+      "remarks":{
+         "type":["null", "string"]
+      },
+      "sales_invoice_lines":{
+         "type":["null", "object"],
+         "properties": {
+            "id": {
+               "type":["null", "string"]
+            },
+            "item": {
+               "type":["null", "string"]
+            },
+            "quantity": {
+               "type":["null", "number"]
+            }
+         }
+      },
+      "salesperson":{
+         "type":["null", "string"]
+      },
+      "salesperson_full_name":{
+         "type":["null", "string"]
+      },
+      "selection_code":{
+         "type":["null", "string"]
+      },
+      "selection_code_code":{
+         "type":["null", "string"]
+      },
+      "selection_code_description":{
+         "type":["null", "string"]
+      },
+      "starter_sales_invoice_status":{
+         "type":["null", "integer"]
+      },
+      "starter_sales_invoice_status_description":{
+         "type":["null", "string"]
+      },
+      "status":{
+         "type":["null", "integer"]
+      },
+      "status_description":{
+         "type":["null", "string"]
+      },
+      "tax_schedule":{
+         "type":["null", "string"]
+      },
+      "tax_schedule_code":{
+         "type":["null", "string"]
+      },
+      "tax_schedule_description":{
+         "type":["null", "string"]
+      },
+      "type":{
+         "type":["null", "integer"]
+      },
+      "type_description":{
+         "type":["null", "string"]
+      },
+      "vat_amount_dc":{
+         "type":["null", "number"]
+      },
+      "vat_amount_fc":{
+         "type":["null", "number"]
+      },
+      "warehouse":{
+         "type":["null", "string"]
+      },
+      "withholding_tax_amount_fc":{
+         "type":["null", "number"]
+      },
+      "withholding_tax_base_amount":{
+         "type":["null", "number"]
+      },
+      "withholding_tax_percentage":{
+         "type":["null", "number"]
+      },
+      "your_ref":{
+         "type":["null", "string"]
+      }
+   }
+}

@@ -1,0 +1,161 @@
+{
+   "type":["null", "object"],
+   "properties":{
+      "id":{
+         "type":["null", "string"]
+      },
+      "amount_dc":{
+         "type":["null", "number"]
+      },
+      "amount_fc":{
+         "type":["null", "string"]
+      },
+      "cost_center":{
+         "type":["null", "string"]
+      },
+      "cost_center_description":{
+         "type":["null", "string"]
+      },
+      "cost_unit":{
+         "type":["null", "string"]
+      },
+      "cost_unit_description":{
+         "type":["null", "string"]
+      },
+      "customer_item_code":{
+         "type":["null", "string"]
+      },
+      "delivery_date":{
+         "type":["null", "string"],
+         "format":"date-time"
+      },
+      "description":{
+         "type":["null", "string"]
+      },
+      "discount":{
+         "type":["null", "number"]
+      },
+      "division":{
+         "type":["null", "integer"]
+      },
+      "employee":{
+         "type":["null", "string"]
+      },
+      "employee_full_name":{
+         "type":["null", "string"]
+      },
+      "end_time":{
+         "type":["null", "string"],
+         "format":"date-time"
+      },
+      "extra_duty_amount_fc":{
+         "type":["null", "number"]
+      },
+      "extra_duty_percentage":{
+         "type":["null", "number"]
+      },
+      "gl_account":{
+         "type":["null", "string"]
+      },
+      "gl_account_description":{
+         "type":["null", "string"]
+      },
+      "invoice_id":{
+         "type":["null", "string"]
+      },
+      "item":{
+         "type":["null", "string"]
+      },
+      "item_code":{
+         "type":["null", "string"]
+      },
+      "item_description":{
+         "type":["null", "string"]
+      },
+      "line_number":{
+         "type":["null", "integer"]
+      },
+      "net_price":{
+         "type":["null", "number"]
+      },
+      "notes":{
+         "type":["null", "string"]
+      },
+      "pricelist":{
+         "type":["null", "string"]
+      },
+      "pricelist_description":{
+         "type":["null", "string"]
+      },
+      "project":{
+         "type":["null", "string"]
+      },
+      "project_description":{
+         "type":["null", "string"]
+      },
+      "project_wbs":{
+         "type":["null", "string"]
+      },
+      "project_wbs_description":{
+         "type":["null", "string"]
+      },
+      "quantity":{
+         "type":["null", "number"]
+      },
+      "sales_order":{
+         "type":["null", "string"]
+      },
+      "sales_order_line":{
+         "type":["null", "string"]
+      },
+      "sales_order_line_number":{
+         "type":["null", "integer"]
+      },
+      "sales_order_number":{
+         "type":["null", "integer"]
+      },
+      "start_time":{
+         "type":["null", "string"],
+         "format":"date-time"
+      },
+      "subscription":{
+         "type":["null", "string"]
+      },
+      "subscription_description":{
+         "type":["null", "string"]
+      },
+      "tax_schedule":{
+         "type":["null", "string"]
+      },
+      "tax_schedule_code":{
+         "type":["null", "string"]
+      },
+      "tax_schedule_description":{
+         "type":["null", "string"]
+      },
+      "unit_code":{
+         "type":["null", "string"]
+      },
+      "unit_description":{
+         "type":["null", "string"]
+      },
+      "unit_price":{
+         "type":["null", "number"]
+      },
+      "vat_amount_dc":{
+         "type":["null", "number"]
+      },
+      "vat_amount_fc":{
+         "type":["null", "number"]
+      },
+      "vat_code":{
+         "type":["null", "string"]
+      },
+      "vat_code_description":{
+         "type":["null", "string"]
+      },
+      "vat_percentage":{
+         "type":["null", "number"]
+      }
+   }
+}

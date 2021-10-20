@@ -1,0 +1,181 @@
+{
+   "type":["null", "object"],
+   "properties":{
+      "id":{
+         "type": ["null", "string"]
+      },
+      "assimilated_vat_box":{
+         "type": ["null", "integer"]
+      },
+      "balance_side":{
+         "type": ["null", "string"]
+      },
+      "balance_type":{
+         "type": ["null", "string"]
+      },
+      "belcotax_type":{
+         "type": ["null", "integer"]
+      },
+      "code":{
+         "type": ["null", "string"]
+      },
+      "compress":{
+         "type": ["null", "boolean"]
+      },
+      "costcenter":{
+         "type": ["null", "string"]
+      },
+      "costcenter_description":{
+         "type": ["null", "string"]
+      },
+      "costunit":{
+         "type": ["null", "string"]
+      },
+      "costunit_description":{
+         "type": ["null", "string"]
+      },
+      "created":{
+         "type": ["null", "string"],
+         "format": "date-time"
+      },
+      "creator":{
+         "type": ["null", "string"]
+      },
+      "creator_full_name":{
+         "type": ["null", "string"]
+      },
+      "deductibility_percentages":{
+         "type": ["null", "object"],
+         "properties": {
+            "id":{
+               "type": ["null", "string"]
+            },
+            "created":{
+               "type": ["null", "string"],
+               "format": "date-time"
+            },
+            "creator":{
+               "type": ["null", "string"]
+            },
+            "creator_full_name":{
+               "type": ["null", "string"]
+            },
+            "division":{
+               "type": ["null", "integer"]
+            },
+            "end_date":{
+               "type": ["null", "string"],
+               "format": "date-time"
+            },
+            "expense_non_deductible_percentage":{
+               "type": ["null", "number"]
+            },
+            "gl_account":{
+               "type": ["null", "string"]
+            },
+            "line_number":{
+               "type": ["null", "integer"]
+            },
+            "modified":{
+               "type": ["null", "string"],
+               "format": "date-time"
+            },
+            "modifier":{
+               "type": ["null", "string"]
+            },
+            "modifier_full_name":{
+               "type": ["null", "string"]
+            },
+            "private_use_percentage":{
+               "type": ["null", "number"]
+            },
+            "start_date":{
+               "type": ["null", "string"],
+               "format": "date-time"
+            },
+            "vat_non_deductible_percentage":{
+               "type": ["null", "number"]
+            }
+         }
+      },
+      "description":{
+         "type": ["null", "string"]
+      },
+      "division":{
+         "type": ["null", "integer"]
+      },
+      "exclude_vat_listing":{
+         "type": ["null", "integer"]
+      },
+      "expense_non_deductible_percentage":{
+         "type": ["null", "number"]
+      },
+      "is_blocked":{
+         "type": ["null", "boolean"]
+      },
+      "matching":{
+         "type": ["null", "boolean"]
+      },
+      "modified":{
+         "type": ["null", "string"],
+         "format": "date-time"
+      },
+      "modifier":{
+         "type": ["null", "string"]
+      },
+      "modifier_full_name":{
+         "type": ["null", "string"]
+      },
+      "private_gl_account":{
+         "type": ["null", "string"]
+      },
+      "private_percentage":{
+         "type": ["null", "number"]
+      },
+      "reporting_code":{
+         "type": ["null", "string"]
+      },
+      "revalue_currency":{
+         "type": ["null", "boolean"]
+      },
+      "search_code":{
+         "type": ["null", "string"]
+      },
+      "type":{
+         "type": ["null", "integer"]
+      },
+      "type_description":{
+         "type": ["null", "string"]
+      },
+      "use_costcenter":{
+         "type": ["null", "integer"]
+      },
+      "use_costunit":{
+         "type": ["null", "integer"]
+      },
+      "vat_code":{
+         "type": ["null", "string"]
+      },
+      "vat_description":{
+         "type": ["null", "string"]
+      },
+      "vat_gl_account_type":{
+         "type": ["null", "string"]
+      },
+      "vat_non_deductible_gl_account":{
+         "type": ["null", "string"]
+      },
+      "vat_non_deductible_percentage":{
+         "type": ["null", "number"]
+      },
+      "vat_system":{
+         "type": ["null", "string"]
+      },
+      "year_end_cost_gl_account":{
+         "type": ["null", "string"]
+      },
+      "year_end_reflection_gl_account":{
+         "type": ["null", "string"]
+      }
+   }
+}

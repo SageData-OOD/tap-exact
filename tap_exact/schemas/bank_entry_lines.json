@@ -1,0 +1,140 @@
+{
+   "type": ["null", "object"],
+   "properties":{
+      "id":{
+         "type": ["null", "string"]
+      },
+      "account":{
+         "type": ["null", "string"]
+      },
+      "account_code":{
+         "type": ["null", "string"]
+      },
+      "account_name":{
+         "type": ["null", "string"]
+      },
+      "amount_dc":{
+         "type": ["null", "number"]
+      },
+      "amount_fc":{
+         "type": ["null", "number"]
+      },
+      "amount_vat_fc":{
+         "type": ["null", "number"]
+      },
+      "asset":{
+         "type": ["null", "string"]
+      },
+      "asset_code":{
+         "type": ["null", "string"]
+      },
+      "asset_description":{
+         "type": ["null", "string"]
+      },
+      "cost_center":{
+         "type": ["null", "string"]
+      },
+      "cost_center_description":{
+         "type": ["null", "string"]
+      },
+      "cost_unit":{
+         "type": ["null", "string"]
+      },
+      "cost_unit_description":{
+         "type": ["null", "string"]
+      },
+      "created":{
+         "type": ["null", "string"],
+         "format": "date-time"
+      },
+      "creator":{
+         "type": ["null", "string"]
+      },
+      "creator_full_name":{
+         "type": ["null", "string"]
+      },
+      "date":{
+         "type": ["null", "string"],
+         "format": "date-time"
+      },
+      "description":{
+         "type": ["null", "string"]
+      },
+      "division":{
+         "type": ["null", "integer"]
+      },
+      "document":{
+         "type": ["null", "string"]
+      },
+      "document_number":{
+         "type": ["null", "integer"]
+      },
+      "document_subject":{
+         "type": ["null", "string"]
+      },
+      "entry_id":{
+         "type": ["null", "string"]
+      },
+      "entry_number":{
+         "type": ["null", "integer"]
+      },
+      "exchange_rate":{
+         "type": ["null", "number"]
+      },
+      "gl_account":{
+         "type": ["null", "string"]
+      },
+      "gl_account_code":{
+         "type": ["null", "string"]
+      },
+      "gl_account_description":{
+         "type": ["null", "string"]
+      },
+      "line_number":{
+         "type": ["null", "integer"]
+      },
+      "modified":{
+         "type": ["null", "string"]
+      },
+      "modifier":{
+         "type": ["null", "string"],
+         "format": "date-time"
+      },
+      "modifier_full_name":{
+         "type": ["null", "string"]
+      },
+      "notes":{
+         "type": ["null", "string"]
+      },
+      "offset_id":{
+         "type": ["null", "string"]
+      },
+      "our_ref":{
+         "type": ["null", "integer"]
+      },
+      "project":{
+         "type": ["null", "string"]
+      },
+      "project_code":{
+         "type": ["null", "string"]
+      },
+      "project_description":{
+         "type": ["null", "string"]
+      },
+      "quantity":{
+         "type": ["null", "number"]
+      },
+      "vat_code":{
+         "type": ["null", "string"]
+      },
+      "vat_code_description":{
+         "type": ["null", "string"]
+      },
+      "vat_percentage":{
+         "type": ["null", "number"]
+      },
+      "vat_type":{
+         "type": ["null", "string"]
+      }
+   }
+}
