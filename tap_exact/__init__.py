@@ -22,8 +22,8 @@ DEFAULT_HOST = "https://start.exactonline.nl"
 URIS = {
     "me": "/api/v1/current/Me",
     "refresh": "/api/oauth2/token",
-    "sales_invoices": "/api/v1/{division}/bulk/SalesInvoice/SalesInvoices",
-    "sales_invoice_lines": "/api/v1/{division}/bulk/SalesInvoice/SalesInvoiceLines",
+    "sales_invoices": "/api/v1/{division}/salesinvoice/SalesInvoices",
+    "purchase_invoices": "/api/v1/{division}/purchase/PurchaseInvoices",
     "gl_accounts": "/api/v1/{division}/bulk/Financial/GLAccounts",
     "bank_entry_lines": "/api/v1/{division}/financialtransaction/BankEntryLines",
     "general_journal_entry_lines": "/api/v1/{division}/generaljournalentry/GeneralJournalEntryLines"
@@ -81,10 +81,22 @@ def snake_to_camelcase(name):
         return exceptions[name]
 
 
+def refactor_record_according_to_schema(record):
+    """
+    e.x. {"AssimilatedVatBox": 12}  -->  {"assimilated_vat_box": 12}
+
+    e.x. {"AssimilatedVatBox": {"OtherData": "jon doe"}}
+    -->  {"other_data": {"creator_full_name": "jon doe"}}
+    """
+    converted_data = {camel_to_snake_case(k): v if not isinstance(v, dict) else refactor_record_according_to_schema(v)
+                      for k, v in record.items()}
+    return converted_data
+
+
 def get_key_properties(stream_id):
     key_properties = {
         "sales_invoices": ["invoice_id"],
-        "sales_invoice_lines": ["id"],
+        "purchase_invoices": ["id"],
         "gl_accounts": ["id"],
         "bank_entry_lines": ["id"],
         "general_journal_entry_lines": ["id"]
@@ -94,8 +106,8 @@ def get_key_properties(stream_id):
 
 def get_bookmark_attributes(stream_id):
     bookmark = {
-        "sales_invoices": None,
-        "sales_invoice_lines": None,
+        "sales_invoices": "modified",
+        "purchase_invoices": "modified",
         "gl_accounts": "modified",
         "bank_entry_lines": "modified",
         "general_journal_entry_lines": "modified"
@@ -111,7 +123,7 @@ def get_properties_for_expansion(schema):
     """
     expand = []
     for prop, value in schema.to_dict()["properties"].items():
-        if "object" in value["type"]:
+        if "array" in value["type"] and "object" in value.get("items", {}).get("type"):
             expand.append(snake_to_camelcase(prop))
 
     return expand
@@ -125,10 +137,22 @@ def get_selected_attrs(stream):
     for md in stream.metadata:
         if md["metadata"].get("selected", False) or md["metadata"].get("inclusion") == "automatic":
             if md["breadcrumb"]:
-                attr = md["breadcrumb"][1] + "/" + md["breadcrumb"][3] if len(md["breadcrumb"]) == 4 else md["breadcrumb"][1]
+                # array of object, and instead of prop1/items/prop2 we need prop1/prop2 for $select query in request url
+                attr = md["breadcrumb"][1] + "/" + md["breadcrumb"][5] if len(md["breadcrumb"]) == 6 else \
+                    md["breadcrumb"][1]
                 list_attrs.append(attr)
 
     return list_attrs
+
+
+def print_metrics(config):
+    creds = {
+        "host_url": config.get("host_url", DEFAULT_HOST),
+        "state": {"service_client_id": config["client_id"], "service_client_secret": config["client_secret"]},
+        "raw_credentials": {"refresh_token": config["refresh_token"]}
+    }
+    metric = {"type": "secret", "value": creds, "tag": "secret"}
+    LOGGER.info("METRIC: %s", metric)
 
 
 def create_metadata_for_report(stream_id, schema, key_properties):
@@ -151,6 +175,12 @@ def create_metadata_for_report(stream_id, schema, key_properties):
             mdata.extend(
                 [{"breadcrumb": ["properties", key, "properties", prop], "metadata": {"inclusion": inclusion}} for prop
                  in schema.properties.get(key).properties])
+        elif "array" in schema.properties.get(key).type and "object" in schema.properties.get(key, {}).items.type:
+            inclusion = "available"
+            mdata.extend(
+                [{"breadcrumb": ["properties", key, "properties", "items", "properties", prop],
+                  "metadata": {"inclusion": inclusion}} for prop
+                 in schema.properties.get(key).items.properties])
         else:
             inclusion = "automatic" if key in key_properties or key == replication_key else "available"
             mdata.append({"breadcrumb": ["properties", key], "metadata": {"inclusion": inclusion}})
@@ -206,6 +236,7 @@ def refresh_access_token_if_expired(config):
         res = _refresh_token(config)
         config["access_token"] = res["access_token"]
         config["refresh_token"] = res["refresh_token"]
+        print_metrics(config)
         config["expires_in"] = datetime.utcnow() + timedelta(seconds=int(res["expires_in"]))
         return True
     return False
@@ -247,7 +278,7 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
 
     # Add user selected attributes in query
     if select_attr:
-        url += "?$select=" + ",".join([snake_to_camelcase(a) for a in select_attr])    # convert to API required format
+        url += "?$select=" + ",".join([snake_to_camelcase(a) for a in select_attr])  # convert to API required format
 
     # Select properties for expansion
     if expand_attr:
@@ -258,18 +289,6 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
     if filter_attr:
         url += "&$filter=" + f"{snake_to_camelcase(filter_attr)} ge datetime'{start_date}'"
     return url, headers
-
-
-def refactor_record_according_to_schema(record):
-    """
-    e.x. {"AssimilatedVatBox": 12}  -->  {"assimilated_vat_box": 12}
-
-    e.x. {"AssimilatedVatBox": {"OtherData": "jon doe"}}
-    -->  {"other_data": {"creator_full_name": "jon doe"}}
-    """
-    converted_data = {camel_to_snake_case(k): v if not isinstance(v, dict) else refactor_record_according_to_schema(v)
-                      for k, v in record.items()}
-    return converted_data
 
 
 def sync(config, state, catalog):
@@ -291,7 +310,7 @@ def sync(config, state, catalog):
         select_attr = get_selected_attrs(stream)
         expand_attr = get_properties_for_expansion(stream.schema)
         start_date = singer.get_bookmark(state, stream.tap_stream_id, bookmark_column).split(" ")[0] \
-            if state.get("bookmarks", {}).get(stream.tap_stream_id) else config["start_date"]
+            if state.get("bookmarks", {}).get(stream.tap_stream_id) else config["start_date"] + "T00:00:00"
         bookmark = start_date
 
         _next, headers = generate_request_url(config, select_attr, expand_attr, stream.tap_stream_id, start_date)
