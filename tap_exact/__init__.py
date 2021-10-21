@@ -151,8 +151,8 @@ def print_metrics(config):
         "state": {"service_client_id": config["client_id"], "service_client_secret": config["client_secret"]},
         "raw_credentials": {"refresh_token": config["refresh_token"]}
     }
-    metric = {"type": "secret", "value": creds, "tag": "secret"}
-    LOGGER.info("METRIC: %s", metric)
+    metric = {"type": "secret", "value": creds, "tags": "tap-secret"}
+    LOGGER.info('METRIC: %s', json.dumps(metric))
 
 
 def create_metadata_for_report(stream_id, schema, key_properties):
