@@ -45,56 +45,59 @@
          "type": ["null", "string"]
       },
       "deductibility_percentages":{
-         "type": ["null", "object"],
-         "properties": {
-            "id":{
-               "type": ["null", "string"]
-            },
-            "created":{
-               "type": ["null", "string"],
-               "format": "date-time"
-            },
-            "creator":{
-               "type": ["null", "string"]
-            },
-            "creator_full_name":{
-               "type": ["null", "string"]
-            },
-            "division":{
-               "type": ["null", "integer"]
-            },
-            "end_date":{
-               "type": ["null", "string"],
-               "format": "date-time"
-            },
-            "expense_non_deductible_percentage":{
-               "type": ["null", "number"]
-            },
-            "gl_account":{
-               "type": ["null", "string"]
-            },
-            "line_number":{
-               "type": ["null", "integer"]
-            },
-            "modified":{
-               "type": ["null", "string"],
-               "format": "date-time"
-            },
-            "modifier":{
-               "type": ["null", "string"]
-            },
-            "modifier_full_name":{
-               "type": ["null", "string"]
-            },
-            "private_use_percentage":{
-               "type": ["null", "number"]
-            },
-            "start_date":{
-               "type": ["null", "string"],
-               "format": "date-time"
-            },
-            "vat_non_deductible_percentage":{
-               "type": ["null", "number"]
+         "type":["null", "array"],
+         "items": {
+            "type": ["null", "object"],
+            "properties": {
+               "id":{
+                  "type": ["null", "string"]
+               },
+               "created":{
+                  "type": ["null", "string"],
+                  "format": "date-time"
+               },
+               "creator":{
+                  "type": ["null", "string"]
+               },
+               "creator_full_name":{
+                  "type": ["null", "string"]
+               },
+               "division":{
+                  "type": ["null", "integer"]
+               },
+               "end_date":{
+                  "type": ["null", "string"],
+                  "format": "date-time"
+               },
+               "expense_non_deductible_percentage":{
+                  "type": ["null", "number"]
+               },
+               "gl_account":{
+                  "type": ["null", "string"]
+               },
+               "line_number":{
+                  "type": ["null", "integer"]
+               },
+               "modified":{
+                  "type": ["null", "string"],
+                  "format": "date-time"
+               },
+               "modifier":{
+                  "type": ["null", "string"]
+               },
+               "modifier_full_name":{
+                  "type": ["null", "string"]
+               },
+               "private_use_percentage":{
+                  "type": ["null", "number"]
+               },
+               "start_date":{
+                  "type": ["null", "string"],
+                  "format": "date-time"
+               },
+               "vat_non_deductible_percentage":{
+                  "type": ["null", "number"]
+               }
             }
          }
       },

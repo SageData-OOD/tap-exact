@@ -94,11 +94,11 @@
          "type": ["null", "integer"]
       },
       "modified":{
-         "type": ["null", "string"]
-      },
-      "modifier":{
          "type": ["null", "string"],
          "format": "date-time"
+      },
+      "modifier":{
+         "type": ["null", "string"]
       },
       "modifier_full_name":{
          "type": ["null", "string"]

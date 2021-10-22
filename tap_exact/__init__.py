@@ -24,7 +24,7 @@ URIS = {
     "refresh": "/api/oauth2/token",
     "sales_invoices": "/api/v1/{division}/salesinvoice/SalesInvoices",
     "purchase_invoices": "/api/v1/{division}/purchase/PurchaseInvoices",
-    "gl_accounts": "/api/v1/{division}/bulk/Financial/GLAccounts",
+    "gl_accounts": "/api/v1/{division}/financial/GLAccounts",
     "bank_entry_lines": "/api/v1/{division}/financialtransaction/BankEntryLines",
     "general_journal_entry_lines": "/api/v1/{division}/generaljournalentry/GeneralJournalEntryLines"
 }
@@ -81,16 +81,42 @@ def snake_to_camelcase(name):
         return exceptions[name]
 
 
+def fix_if_datetime(val):
+    if isinstance(val, str) and val.startswith("/Date(") and val.endswith(")/"):
+        time_stamp = val.replace("/Date(", "").replace(")/", "")
+        your_dt = datetime.utcfromtimestamp(int(time_stamp) / 1000)
+        your_dt.strftime("%Y-%m-%d %H:%M:%S")
+        return str(your_dt)
+    else:
+        return val
+
+
 def refactor_record_according_to_schema(record):
     """
     e.x. {"AssimilatedVatBox": 12}  -->  {"assimilated_vat_box": 12}
 
     e.x. {"AssimilatedVatBox": {"OtherData": "jon doe"}}
-    -->  {"other_data": {"creator_full_name": "jon doe"}}
+    -->  {"assimilated_vat_box": {"other_data": "jon doe"}}
     """
-    converted_data = {camel_to_snake_case(k): v if not isinstance(v, dict) else refactor_record_according_to_schema(v)
+
+    converted_data = {camel_to_snake_case(k): fix_if_datetime(v) if not isinstance(v, dict) else refactor_record_according_to_schema(v)
                       for k, v in record.items()}
     return converted_data
+
+
+def fetch_deferred_data_if_available(records, expand_attr, stream_id, config):
+    if expand_attr and records:
+        if stream_id == "gl_accounts":
+            for attr in expand_attr:
+                for row in records:
+                    uri = row.get(attr, {}).get("__deferred", {}).get("uri")
+                    if uri:
+                        headers = {"Accept": "application/json"}
+                        deferred_data = request_data(uri, headers, config)
+                        row[attr], _ = deferred_data
+                    else:
+                        row[attr] = []
+    return records
 
 
 def get_key_properties(stream_id):
@@ -137,12 +163,16 @@ def get_selected_attrs(stream):
     for md in stream.metadata:
         if md["metadata"].get("selected", False) or md["metadata"].get("inclusion") == "automatic":
             if md["breadcrumb"]:
-                # array of object, and instead of prop1/items/prop2 we need prop1/prop2 for $select query in request url
-                attr = md["breadcrumb"][1] + "/" + md["breadcrumb"][5] if len(md["breadcrumb"]) == 6 else \
-                    md["breadcrumb"][1]
+                if stream.tap_stream_id == "gl_accounts":
+                    # in specially "gl_accounts" stream, there is deferred_data, hence we can't send it with $select in request query
+                    attr = md["breadcrumb"][1]
+                else:
+                    # array of object, and instead of prop1/items/prop2 we need prop1/prop2 for $select query in request url
+                    attr = md["breadcrumb"][1] + "/" + md["breadcrumb"][5] if len(md["breadcrumb"]) == 6 else \
+                        md["breadcrumb"][1]
                 list_attrs.append(attr)
 
-    return list_attrs
+    return list(set(list_attrs))
 
 
 def print_metrics(config):
@@ -281,7 +311,7 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
         url += "?$select=" + ",".join([snake_to_camelcase(a) for a in select_attr])  # convert to API required format
 
     # Select properties for expansion
-    if expand_attr:
+    if expand_attr and stream_id != "gl_accounts":
         url += f"&$expand={','.join(expand_attr)}"
 
     # In most cases, Bookmark attr is "Modified" as datetime [format e.x. 2021-08-20T12:00:00 ]
@@ -316,6 +346,7 @@ def sync(config, state, catalog):
         _next, headers = generate_request_url(config, select_attr, expand_attr, stream.tap_stream_id, start_date)
         while _next:
             records, _next = request_data(_next, headers, config)
+            records = fetch_deferred_data_if_available(records, expand_attr, stream.tap_stream_id, config)
             with singer.metrics.record_counter(stream.tap_stream_id) as counter:
                 for row in records:
                     # Type Conversation and Transformation
