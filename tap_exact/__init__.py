@@ -91,6 +91,13 @@ def fix_if_datetime(val):
         return val
 
 
+def arrange_records(stream_id, row):
+    if "__metadata" in row: row.pop("__metadata")
+    if stream_id == "gl_accounts" and row.get("DeductibilityPercentages"):
+        row["DeductibilityPercentages"] = row.get("DeductibilityPercentages", {}).get("results", {})
+    return row
+
+
 def refactor_record_according_to_schema(record):
     """
     e.x. {"AssimilatedVatBox": 12}  -->  {"assimilated_vat_box": 12}
@@ -346,7 +353,7 @@ def sync(config, state, catalog):
             with singer.metrics.record_counter(stream.tap_stream_id) as counter:
                 for row in records:
                     # Type Conversation and Transformation
-                    if "__metadata" in row: row.pop("__metadata")
+                    row = arrange_records(stream.tap_stream_id, row)
                     converted_data = refactor_record_according_to_schema(row)
                     transformed_data = transform(converted_data, schema, metadata=mdata)
 
