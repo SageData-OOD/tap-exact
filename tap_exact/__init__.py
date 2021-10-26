@@ -104,19 +104,19 @@ def refactor_record_according_to_schema(record):
     return converted_data
 
 
-def fetch_deferred_data_if_available(records, expand_attr, stream_id, config):
-    if expand_attr and records:
-        if stream_id == "gl_accounts":
-            for attr in expand_attr:
-                for row in records:
-                    uri = row.get(attr, {}).get("__deferred", {}).get("uri")
-                    if uri:
-                        headers = {"Accept": "application/json"}
-                        deferred_data = request_data(uri, headers, config)
-                        row[attr], _ = deferred_data
-                    else:
-                        row[attr] = []
-    return records
+# def fetch_deferred_data_if_available(records, expand_attr, stream_id, config):
+#     if expand_attr and records:
+#         if stream_id == "gl_accounts":
+#             for attr in expand_attr:
+#                 for row in records:
+#                     uri = row.get(attr, {}).get("__deferred", {}).get("uri")
+#                     if uri:
+#                         headers = {"Accept": "application/json"}
+#                         deferred_data = request_data(uri, headers, config)
+#                         row[attr], _ = deferred_data
+#                     else:
+#                         row[attr] = []
+#     return records
 
 
 def get_key_properties(stream_id):
@@ -163,13 +163,9 @@ def get_selected_attrs(stream):
     for md in stream.metadata:
         if md["metadata"].get("selected", False) or md["metadata"].get("inclusion") == "automatic":
             if md["breadcrumb"]:
-                if stream.tap_stream_id == "gl_accounts":
-                    # in specially "gl_accounts" stream, there is deferred_data, hence we can't send it with $select in request query
-                    attr = md["breadcrumb"][1]
-                else:
-                    # array of object, and instead of prop1/items/prop2 we need prop1/prop2 for $select query in request url
-                    attr = md["breadcrumb"][1] + "/" + md["breadcrumb"][5] if len(md["breadcrumb"]) == 6 else \
-                        md["breadcrumb"][1]
+                # array of object, and instead of prop1/items/prop2 we need prop1/prop2 for $select query in request url
+                attr = md["breadcrumb"][1] + "/" + md["breadcrumb"][5] if len(md["breadcrumb"]) == 6 else \
+                    md["breadcrumb"][1]
                 list_attrs.append(attr)
 
     return list(set(list_attrs))
@@ -311,7 +307,7 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
         url += "?$select=" + ",".join([snake_to_camelcase(a) for a in select_attr])  # convert to API required format
 
     # Select properties for expansion
-    if expand_attr and stream_id != "gl_accounts":
+    if expand_attr:
         url += f"&$expand={','.join(expand_attr)}"
 
     # In most cases, Bookmark attr is "Modified" as datetime [format e.x. 2021-08-20T12:00:00 ]
@@ -346,7 +342,7 @@ def sync(config, state, catalog):
         _next, headers = generate_request_url(config, select_attr, expand_attr, stream.tap_stream_id, start_date)
         while _next:
             records, _next = request_data(_next, headers, config)
-            records = fetch_deferred_data_if_available(records, expand_attr, stream.tap_stream_id, config)
+            # records = fetch_deferred_data_if_available(records, expand_attr, stream.tap_stream_id, config)
             with singer.metrics.record_counter(stream.tap_stream_id) as counter:
                 for row in records:
                     # Type Conversation and Transformation
