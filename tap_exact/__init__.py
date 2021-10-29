@@ -105,8 +105,9 @@ def refactor_record_according_to_schema(record):
     e.x. {"AssimilatedVatBox": {"OtherData": "jon doe"}}
     -->  {"assimilated_vat_box": {"other_data": "jon doe"}}
     """
-
-    converted_data = {camel_to_snake_case(k): fix_if_datetime(v) if not isinstance(v, dict) else refactor_record_according_to_schema(v)
+    if isinstance(record, list):
+        return [refactor_record_according_to_schema(r) for r in record]
+    converted_data = {camel_to_snake_case(k): fix_if_datetime(v) if not isinstance(v, (dict, list)) else refactor_record_according_to_schema(v)
                       for k, v in record.items()}
     return converted_data
 
