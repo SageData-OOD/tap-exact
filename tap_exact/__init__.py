@@ -11,7 +11,7 @@ from singer import utils, metadata
 from singer.catalog import Catalog, CatalogEntry
 from singer.transform import transform
 from datetime import datetime, timedelta
-from utils import *
+from .utils import *
 
 REQUIRED_CONFIG_KEYS = ["start_date", "host_url", "client_id", "client_secret", "refresh_token"]
 LOGGER = singer.get_logger()
