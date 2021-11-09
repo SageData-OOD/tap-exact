@@ -52,7 +52,7 @@ def snake_to_camelcase(name, stream_id):
     # for expanded attributes e.x. [ other_percentages/id --> OtherPercentages/ID ]
     if "/" in name:
         spl = name.split("/")
-        return snake_to_camelcase(spl[0]) + "/" + snake_to_camelcase(spl[1])
+        return snake_to_camelcase(spl[0], stream_id) + "/" + snake_to_camelcase(spl[1], stream_id)
 
     if name not in exceptions:
         cm = []
