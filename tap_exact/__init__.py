@@ -11,7 +11,8 @@ from singer import utils, metadata
 from singer.catalog import Catalog, CatalogEntry
 from singer.transform import transform
 from datetime import datetime, timedelta
-from .utils import *
+
+from helpers import *
 
 REQUIRED_CONFIG_KEYS = ["start_date", "host_url", "client_id", "client_secret", "refresh_token"]
 LOGGER = singer.get_logger()
@@ -82,7 +83,7 @@ def get_properties_for_expansion(schema):
     expand = []
     for prop, value in schema.to_dict()["properties"].items():
         if "array" in value["type"] and "object" in value.get("items", {}).get("type"):
-            expand.append(snake_to_camelcase(prop))
+            expand.append(utils.snake_to_camelcase(prop))
 
     return expand
 
