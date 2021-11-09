@@ -74,7 +74,7 @@ def get_bookmark_attributes(stream_id):
     return bookmark.get(stream_id)
 
 
-def get_properties_for_expansion(schema):
+def get_properties_for_expansion(schema, stream_id):
     """
     if any property in schema with type object available, then to fetch that we have to add that property to under
     expansion in request url
@@ -83,7 +83,7 @@ def get_properties_for_expansion(schema):
     expand = []
     for prop, value in schema.to_dict()["properties"].items():
         if "array" in value["type"] and "object" in value.get("items", {}).get("type"):
-            expand.append(utils.snake_to_camelcase(prop))
+            expand.append(snake_to_camelcase(prop, stream_id))
 
     return expand
 
@@ -237,7 +237,7 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
 
     # Add user selected attributes in query
     if select_attr:
-        url += "?$select=" + ",".join([snake_to_camelcase(a) for a in select_attr])  # convert to API required format
+        url += "?$select=" + ",".join([snake_to_camelcase(a, stream_id) for a in select_attr])  # convert to API required format
 
     # Select properties for expansion
     if expand_attr:
@@ -246,7 +246,7 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
     # In most cases, Bookmark attr is "Modified" as datetime [format e.x. 2021-08-20T12:00:00 ]
     filter_attr = get_bookmark_attributes(stream_id)
     if filter_attr:
-        url += "&$filter=" + f"{snake_to_camelcase(filter_attr)} ge datetime'{start_date}'"
+        url += "&$filter=" + f"{snake_to_camelcase(filter_attr, stream_id)} ge datetime'{start_date}'"
     return url, headers
 
 
@@ -267,7 +267,7 @@ def sync(config, state, catalog):
         )
 
         select_attr = get_selected_attrs(stream)
-        expand_attr = get_properties_for_expansion(stream.schema)
+        expand_attr = get_properties_for_expansion(stream.schema, stream.tap_stream_id)
         start_date = singer.get_bookmark(state, stream.tap_stream_id, bookmark_column).split(" ")[0] \
             if state.get("bookmarks", {}).get(stream.tap_stream_id) else config["start_date"] + "T00:00:00"
         bookmark = start_date

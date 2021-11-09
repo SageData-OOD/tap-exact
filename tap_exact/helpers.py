@@ -30,7 +30,7 @@ def camel_to_snake_case(name):
     return sn
 
 
-def snake_to_camelcase(name):
+def snake_to_camelcase(name, stream_id):
     """
     assimilated_vat_box  -->  AssimilatedVATBox
     """
@@ -44,6 +44,11 @@ def snake_to_camelcase(name):
         "gl": "GL"
     }
     exceptions = {"amount_discount_excl_vat": "AmountDiscountExclVat", "amount_fc_excl_vat": "AmountFCExclVat"}
+
+    if stream_id == "receivables_list":
+        exceptions["account_id"] = "AccountId"
+
+
     # for expanded attributes e.x. [ other_percentages/id --> OtherPercentages/ID ]
     if "/" in name:
         spl = name.split("/")
