@@ -1,0 +1,100 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "properties": {
+        "hid": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "account_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "account_id": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "account_name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "amount": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "amount_in_transit": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "currency_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "due_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "entry_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "invoice_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "invoice_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "journal_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "journal_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "your_ref": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

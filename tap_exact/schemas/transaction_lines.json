@@ -1,0 +1,426 @@
+{
+    "type": [
+        "null",
+        "object"
+    ],
+    "properties": {
+        "id": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "account": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "account_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "account_name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "amount_dc": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "amount_fc": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "amount_vat_base_fc": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "amount_vat_fc": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "asset": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "asset_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "asset_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "cost_center": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "cost_center_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "cost_unit": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "cost_unit_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "created": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "creator": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "creator_full_name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "currency": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "division": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "document": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "document_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "document_subject": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "due_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "entry_id": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "entry_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "exchange_rate": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "extra_duty_amount_fc": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "extra_duty_percentage": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "financial_period": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "financial_year": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "gl_account": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "gl_account_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "gl_account_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "invoice_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "item": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "item_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "item_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "journal_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "journal_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "line_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "line_type": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "modified": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "modifier": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "modifier_full_name": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "notes": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "offset_id": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "order_number": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "payment_discount_amount": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "payment_reference": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "project": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "project_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "project_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "quantity": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "serial_number": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "shop_order": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "status": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "subscription": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "subscription_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "tracking_number": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "tracking_number_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "type": {
+            "type": [
+                "null",
+                "integer"
+            ]
+        },
+        "vat_code": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "vat_code_description": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "vat_percentage": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "vat_type": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "your_ref": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}
