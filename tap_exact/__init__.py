@@ -202,7 +202,7 @@ def refresh_access_token_if_expired(config):
 
 
 @backoff.on_exception(backoff.expo, ExactRateLimitError, max_tries=5, factor=2)
-@utils.ratelimit(1, 1)
+@utils.ratelimit(1, 2) # make sure that after every call there is at least 2 seconds pause
 def request_data(_next, headers, config):
     if refresh_access_token_if_expired(config) or "Authorization" not in headers:
         headers.update({'Authorization': f'bearer {config["access_token"]}'})
