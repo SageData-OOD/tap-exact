@@ -2,7 +2,6 @@
 import os
 import json
 
-
 import backoff
 import requests
 import singer
@@ -108,7 +107,11 @@ def print_metrics(config):
     creds = {
         "host_url": config.get("host_url", DEFAULT_HOST),
         "state": {"service_client_id": config["client_id"], "service_client_secret": config["client_secret"]},
-        "raw_credentials": {"refresh_token": config["refresh_token"]}
+        "raw_credentials": {
+            "refresh_token": config["refresh_token"],
+            "access_token": config["access_token"],
+            "expires_in": config["expires_in"]
+        }
     }
     metric = {"type": "secret", "value": creds, "tags": "tap-secret"}
     LOGGER.info('METRIC: %s', json.dumps(metric))
@@ -195,14 +198,14 @@ def refresh_access_token_if_expired(config):
         res = _refresh_token(config)
         config["access_token"] = res["access_token"]
         config["refresh_token"] = res["refresh_token"]
-        print_metrics(config)
         config["expires_in"] = datetime.utcnow() + timedelta(seconds=int(res["expires_in"]))
+        print_metrics(config)
         return True
     return False
 
 
 @backoff.on_exception(backoff.expo, ExactRateLimitError, max_tries=5, factor=2)
-@utils.ratelimit(1, 2) # make sure that after every call there is at least 2 seconds pause
+@utils.ratelimit(1, 1)  # make sure that after every call there is at least 1 seconds pause
 def request_data(_next, headers, config):
     if refresh_access_token_if_expired(config) or "Authorization" not in headers:
         headers.update({'Authorization': f'bearer {config["access_token"]}'})
@@ -237,7 +240,8 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
 
     # Add user selected attributes in query
     if select_attr:
-        url += "?$select=" + ",".join([snake_to_camelcase(a, stream_id) for a in select_attr])  # convert to API required format
+        url += "?$select=" + ",".join(
+            [snake_to_camelcase(a, stream_id) for a in select_attr])  # convert to API required format
 
     # Select properties for expansion
     if expand_attr:
