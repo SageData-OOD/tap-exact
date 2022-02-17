@@ -230,9 +230,12 @@ def request_data(_next, headers, config):
 def generate_request_url(config, select_attr, expand_attr, stream_id, start_date):
     endpoint = URIS.get(stream_id)
     host = config.get("host_url", DEFAULT_HOST)
-    headers = {"Accept": "application/json"}
-    if refresh_access_token_if_expired(config):
-        headers.update({'Authorization': f'bearer {config["access_token"]}'})
+    refresh_access_token_if_expired(config)
+
+    headers = {
+        "Accept": "application/json",
+        'Authorization': f'bearer {config["access_token"]}'
+    }
 
     # Fetch account "Division", for user account
     if config.get("division") is None:
