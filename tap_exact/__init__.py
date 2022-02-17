@@ -110,7 +110,7 @@ def print_metrics(config):
         "raw_credentials": {
             "refresh_token": config["refresh_token"],
             "access_token": config["access_token"],
-            "expires_in": config["expires_in"]
+            "expires_in": str(config["expires_in"])
         }
     }
     metric = {"type": "secret", "value": creds, "tags": "tap-secret"}
@@ -193,6 +193,12 @@ def _refresh_token(config):
 
 
 def refresh_access_token_if_expired(config):
+    if config.get('expires_in') and not isinstance(config.get('expires_in'), datetime):
+        try:
+            config["expires_in"] = datetime.strptime(config["expires_in"], "%Y-%m-%d %H:%M:%S.%f")
+        except ValueError:
+            config["expires_in"] = None
+
     # if [expires_in not exist] or if [exist and less then current time] then it will update the token
     if config.get('expires_in') is None or config.get('expires_in') < datetime.utcnow():
         res = _refresh_token(config)
