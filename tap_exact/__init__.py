@@ -238,9 +238,9 @@ def generate_request_url(config, select_attr, expand_attr, stream_id, start_date
     if config.get("division") is None:
         url = host + URIS["me"] + "?$select=AccountingDivision"
         res = requests.get(url, headers=headers)
-        config["division"] = res.json().get("d", {}).get("results", [])[0].get("AccountingDivision")
+        config["division"] = res.json().get("d", {}).get("results", [{}])[0].get("AccountingDivision")
         if config["division"] is None:
-            raise Exception("No Division Retrieved For Your Account")
+            raise Exception(res.text)
 
     url = host + endpoint.format(division=config["division"])
 
